@@ -110,6 +110,10 @@ async function initDb() {
       host: process.env.DB_HOST,
       user: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
+      ssl: {
+        rejectUnauthorized: true
+      },
+      connectTimeout: 10000
     });
     console.log('Connected to the database server');
 
@@ -155,6 +159,7 @@ async function initDb() {
     console.log('Database initialized successfully');
   } catch (error) {
     console.error('Error initializing database:', error);
+    console.error('Error details:', error.message, error.code, error.errno, error.sqlState);
     throw error;
   }
   // finally {
