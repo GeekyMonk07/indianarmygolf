@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 exports.login = async (req, res) => {
     const { username, password } = req.body;
     try {
-        const [rows] = await db.query('SELECT * FROM admin WHERE username = ?', [username]);
+        const [rows] = await db.pool.query('SELECT * FROM admin WHERE username = ?', [username]);
         if (rows.length === 0) {
             return res.status(401).json({ message: 'Invalid credentials' });
         }
@@ -25,7 +25,7 @@ exports.createFourball = async (req, res) => {
     const { fourballId, password, player1, player2, player3, player4 } = req.body;
     try {
         const hashedPassword = await bcrypt.hash(password, 10);
-        const [result] = await db.query(
+        const [result] = await db.pool.query(
             'INSERT INTO fourballs (fourball_id, password, player1_name, player2_name, player3_name, player4_name) VALUES (?, ?, ?, ?, ?, ?)',
             [fourballId, hashedPassword, player1, player2, player3, player4]
         );
@@ -37,7 +37,7 @@ exports.createFourball = async (req, res) => {
 
 exports.viewFourballs = async (req, res) => {
     try {
-        const [rows] = await db.query('SELECT * FROM fourballs');
+        const [rows] = await db.pool.query('SELECT * FROM fourballs');
         res.json(rows);
     } catch (error) {
         res.status(500).json({ message: 'Error fetching fourballs', error: error.message });

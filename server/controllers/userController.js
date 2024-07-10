@@ -58,7 +58,7 @@ const jwt = require('jsonwebtoken');
 exports.login = async (req, res) => {
     const { fourballId, password } = req.body;
     try {
-        const [rows] = await db.query('SELECT * FROM fourballs WHERE fourball_id = ?', [fourballId]);
+        const [rows] = await db.pool.query('SELECT * FROM fourballs WHERE fourball_id = ?', [fourballId]);
         if (rows.length === 0) {
             return res.status(401).json({ message: 'Invalid credentials' });
         }
@@ -87,7 +87,7 @@ exports.enterScore = async (req, res) => {
     const { playerName, holeNumber, score } = req.body;
     const fourballId = req.fourball.id;
     try {
-        await db.query(
+        await db.pool.query(
             'INSERT INTO scores (fourball_id, player_name, hole_number, score) VALUES (?, ?, ?, ?) ON DUPLICATE KEY UPDATE score = ?',
             [fourballId, playerName, holeNumber, score, score]
         );
@@ -100,7 +100,7 @@ exports.enterScore = async (req, res) => {
 exports.viewScores = async (req, res) => {
     const fourballId = req.fourball.id;
     try {
-        const [rows] = await db.query(`
+        const [rows] = await db.pool.query(`
             SELECT player_name, hole_number, score
             FROM scores
             WHERE fourball_id = ?
