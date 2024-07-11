@@ -1,9 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 function AdminDashboard() {
     const navigate = useNavigate();
+
+    useEffect(() => {
+        // Prevent going back
+        window.history.pushState(null, "", window.location.href);
+        window.onpopstate = function () {
+            window.history.pushState(null, "", window.location.href);
+        };
+
+        return () => {
+            window.onpopstate = null;
+        };
+    }, []);
 
     const handleLogout = () => {
         localStorage.removeItem('token');

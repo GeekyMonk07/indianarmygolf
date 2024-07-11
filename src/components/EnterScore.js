@@ -81,10 +81,39 @@
 
 // export default EnterScore;
 
+// import React, { useState } from 'react';
+// import axios from 'axios';
+
+// function EnterScore({ players }) {
+//     const [scoreData, setScoreData] = useState({
+//         playerName: players[0],
+//         holeNumber: '1',
+//         score: '',
+//     });
+
+//     const handleChange = (e) => {
+//         setScoreData({ ...scoreData, [e.target.name]: e.target.value });
+//     };
+
+//     const handleSubmit = async (e) => {
+//         e.preventDefault();
+//         try {
+//             const token = localStorage.getItem('token');
+//             await axios.post(`${process.env.REACT_APP_API_URL}/api/user/score`, scoreData, {
+//                 headers: { Authorization: `Bearer ${token}` },
+//             });
+//             alert('Score entered successfully');
+//             setScoreData({ ...scoreData, score: '' });
+//         } catch (error) {
+//             console.error('Error entering score:', error);
+//             alert('Failed to enter score. Please try again.');
+//         }
+//     };
+
 import React, { useState } from 'react';
 import axios from 'axios';
 
-function EnterScore({ players }) {
+function EnterScore({ players, onScoreEntered }) {
     const [scoreData, setScoreData] = useState({
         playerName: players[0],
         holeNumber: '1',
@@ -102,6 +131,7 @@ function EnterScore({ players }) {
             await axios.post(`${process.env.REACT_APP_API_URL}/api/user/score`, scoreData, {
                 headers: { Authorization: `Bearer ${token}` },
             });
+            onScoreEntered(scoreData); // Call this function to update the parent component's state
             alert('Score entered successfully');
             setScoreData({ ...scoreData, score: '' });
         } catch (error) {
@@ -109,6 +139,7 @@ function EnterScore({ players }) {
             alert('Failed to enter score. Please try again.');
         }
     };
+
 
     return (
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -149,7 +180,6 @@ function EnterScore({ players }) {
                     value={scoreData.score}
                     onChange={handleChange}
                     required
-                    min="1"
                     className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 />
             </div>

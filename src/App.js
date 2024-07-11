@@ -8,6 +8,12 @@ import ViewFourballs from './components/ViewFourballs';
 import ViewScores from './components/ViewScores';
 import EnterScore from './components/EnterScore';
 import FourballDashboard from './components/FourballDashboard';
+import { Navigate } from 'react-router-dom';
+
+function PrivateRoute({ children }) {
+  const token = localStorage.getItem('token');
+  return token ? children : <Navigate to="/" />;
+}
 
 function App() {
   return (
@@ -15,9 +21,9 @@ function App() {
       <div className="min-h-screen bg-gray-100">
         <Routes>
           <Route path="/" element={<Login />} />
-          <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/admin" element={<PrivateRoute><AdminDashboard /></PrivateRoute>} />
           {/* <Route path="/user" element={<UserDashboard />} /> */}
-          <Route path="/dashboard" element={<FourballDashboard />} />
+          <Route path="/dashboard" element={<PrivateRoute><FourballDashboard /></PrivateRoute>} />
           <Route path="/create-fourball" element={<CreateFourball />} />
           <Route path="/view-fourballs" element={<ViewFourballs />} />
           <Route path="/view-scores/:fourballId" element={<ViewScores />} />
