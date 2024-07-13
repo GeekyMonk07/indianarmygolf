@@ -1,14 +1,27 @@
-import React from 'react';
-// import banner from '../../assets/golf-banner.jpg';
-
-const hallOfFameData = [
-    { serNo: 1, golfer: 'John Doe', achievement: 'Champion', year: 2021 },
-    { serNo: 2, golfer: 'Jane Smith', achievement: 'Runner-up', year: 2020 },
-    { serNo: 3, golfer: 'Mike Johnson', achievement: 'Champion', year: 2019 },
-    // Add more data as needed
-];
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const HallOfFame = () => {
+    const [hallOfFameData, setHallOfFameData] = useState([]);
+
+    useEffect(() => {
+        fetchHallOfFameData();
+    }, []);
+
+    const fetchHallOfFameData = async () => {
+        try {
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/admin/hall-of-fame`);
+            // Add serial number to each entry
+            const dataWithSerialNo = response.data.map((entry, index) => ({
+                ...entry,
+                serNo: index + 1
+            }));
+            setHallOfFameData(dataWithSerialNo);
+        } catch (error) {
+            console.error('Error fetching Hall of Fame data:', error);
+        }
+    };
+
     return (
         <div>
             <img src='https://images.unsplash.com/photo-1532623248509-573d918ed7fd?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' alt="Golf Tournament Banner" className="w-full h-80 object-cover" />
@@ -25,8 +38,8 @@ const HallOfFame = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {hallOfFameData.map((entry, index) => (
-                                <tr key={index} className="text-center">
+                            {hallOfFameData.map((entry) => (
+                                <tr key={entry.id} className="text-center">
                                     <td className="py-2 px-4 border-b border-gray-700">{entry.serNo}</td>
                                     <td className="py-2 px-4 border-b border-gray-700">{entry.golfer}</td>
                                     <td className="py-2 px-4 border-b border-gray-700">{entry.achievement}</td>

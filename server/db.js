@@ -49,6 +49,15 @@ async function initDb() {
       )
     `);
 
+    await client.query(`
+      CREATE TABLE IF NOT EXISTS hall_of_fame (
+        id SERIAL PRIMARY KEY,
+        golfer VARCHAR(100) NOT NULL,
+        achievement VARCHAR(255) NOT NULL,
+        year INTEGER NOT NULL
+      )
+    `);
+
     console.log('Database initialized successfully');
 
     // Register default admin user

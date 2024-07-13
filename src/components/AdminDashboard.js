@@ -76,6 +76,13 @@ function AdminDashboard() {
                             <h3 className="text-lg font-medium text-gray-900">View Fourballs</h3>
                             <p className="mt-1 text-sm text-gray-500">View all fourballs and their details.</p>
                         </Link>
+                        <Link
+                            to="/edit-hall-of-fame"
+                            className="bg-white overflow-hidden shadow rounded-lg p-6 hover:bg-gray-50"
+                        >
+                            <h3 className="text-lg font-medium text-gray-900">Hall of Fame</h3>
+                            <p className="mt-1 text-sm text-gray-500">Manage all hall of fame details.</p>
+                        </Link>
                         <button
                             onClick={handleArchiveFlush}
                             className="bg-white overflow-hidden shadow rounded-lg p-6 hover:bg-gray-50 text-left"

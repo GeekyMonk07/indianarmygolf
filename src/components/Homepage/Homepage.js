@@ -2,7 +2,7 @@ import React from 'react'
 import HeroSection from './HeroSection'
 import Team from './Team'
 import Info from './Info'
-import logo from "../../assets/logo1.jpg"
+import logo from "../../assets/logo2.jpg"
 import { useNavigate } from 'react-router-dom'
 
 const Homepage = () => {

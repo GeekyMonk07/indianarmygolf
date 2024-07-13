@@ -60,6 +60,28 @@ exports.viewScores = async (req, res) => {
     }
 };
 
+exports.addHallOfFameEntry = async (req, res) => {
+    const { golfer, achievement, year } = req.body;
+    try {
+        const result = await pool.query(
+            'INSERT INTO hall_of_fame (golfer, achievement, year) VALUES ($1, $2, $3) RETURNING id',
+            [golfer, achievement, year]
+        );
+        res.status(201).json({ message: 'Hall of Fame entry added successfully', id: result.rows[0].id });
+    } catch (error) {
+        res.status(500).json({ message: 'Error adding Hall of Fame entry', error: error.message });
+    }
+};
+
+exports.getHallOfFameEntries = async (req, res) => {
+    try {
+        const result = await pool.query('SELECT * FROM hall_of_fame ORDER BY year DESC');
+        res.json(result.rows);
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching Hall of Fame entries', error: error.message });
+    }
+};
+
 exports.archiveFlush = async (req, res) => {
     const client = await pool.connect();
     try {

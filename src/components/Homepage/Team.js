@@ -20,12 +20,12 @@ const Team = () => {
                 <div className="flex flex-col items-center mb-12">
                     <div className="text-center mb-8">
                         <div className="mb-4">
-                            <img
+                            {/* <img
                                 // src={img1}
                                 src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                                 alt="Maj Gen PS Joshi"
                                 className="rounded-full mx-auto shadow-lg w-48 h-48 lg:w-64 lg:h-64 object-contain"
-                            />
+                            /> */}
                         </div>
                         <h3 className="text-2xl font-semibold">Maj Gen PS Joshi</h3>
                         <p className="text-lg text-gray-400">PATRON</p>
@@ -35,11 +35,11 @@ const Team = () => {
                     {teamMembers.map((member, index) => (
                         <div key={index} className="text-center">
                             <div className="mb-4">
-                                <img
+                                {/* <img
                                     src={member.image}
                                     alt={member.name}
                                     className="rounded-full mx-auto shadow-lg w-36 h-36 lg:w-48 lg:h-48 object-contain"
-                                />
+                                /> */}
                             </div>
                             <h3 className="text-xl font-semibold">{member.name}</h3>
                             <p className="text-md text-gray-400">{member.role}</p>

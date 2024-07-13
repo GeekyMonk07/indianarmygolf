@@ -10,6 +10,7 @@ import FourballDashboard from './components/FourballDashboard';
 import Homepage from './components/Homepage/Homepage';
 import { Navigate } from 'react-router-dom';
 import HallOfFame from './components/HallOfFame';
+import AdminHallOfFame from './components/AdminHallOfFame';
 
 function PrivateRoute({ children }) {
   const token = localStorage.getItem('token');
@@ -30,6 +31,7 @@ function App() {
           <Route path="/view-fourballs" element={<ViewFourballs />} />
           <Route path="/view-scores/:fourballId" element={<ViewScores />} />
           <Route path="/enter-score" element={<EnterScore />} />
+          <Route path="/edit-hall-of-fame" element={<AdminHallOfFame />} />
         </Routes>
       </div>
     </Router>
