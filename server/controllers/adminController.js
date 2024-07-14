@@ -82,6 +82,38 @@ exports.getHallOfFameEntries = async (req, res) => {
     }
 };
 
+exports.updateNewsFlash = async (req, res) => {
+    const { tournamentName, date, venue, entryFees, registrationDeadline, contactInfo } = req.body;
+
+    try {
+        // First, delete any existing news flash
+        await pool.query('DELETE FROM news_flash');
+
+        // Then, insert the new news flash
+        const result = await pool.query(
+            'INSERT INTO news_flash (tournament_name, date, venue, entry_fees, registration_deadline, contact_info) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
+            [tournamentName, date, venue, JSON.stringify(entryFees), registrationDeadline, contactInfo]
+        );
+
+        res.status(201).json({ message: 'News flash updated successfully', data: result.rows[0] });
+    } catch (error) {
+        res.status(500).json({ message: 'Error updating news flash', error: error.message });
+    }
+};
+
+exports.getNewsFlash = async (req, res) => {
+    try {
+        const result = await pool.query('SELECT * FROM news_flash LIMIT 1');
+        if (result.rows.length > 0) {
+            res.json(result.rows[0]);
+        } else {
+            res.status(404).json({ message: 'No news flash found' });
+        }
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching news flash', error: error.message });
+    }
+};
+
 exports.archiveFlush = async (req, res) => {
     const client = await pool.connect();
     try {

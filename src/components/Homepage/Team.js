@@ -1,48 +1,41 @@
 import React from 'react';
-// import img1 from '../../assets/Picture1.png';
-// import img2 from '../../assets/Picture2.png';
-// import img3 from '../../assets/Picture3.png';
-// import img4 from '../../assets/Picture4.png';
-// import img5 from '../../assets/Picture5.png';
+
+const patron = { name: 'Maj Gen PS Joshi', role: 'PATRON' };
 
 const teamMembers = [
-    { name: 'Avery Davis', role: 'VICE PATRON', image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" },
-    { name: 'Adora', role: 'GOLF CAPTAIN', image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" },
-    { name: 'Morgan', role: 'SECRETARY', image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" },
-    { name: 'Rosa Maria', role: 'TECH COORD', image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" },
+    { name: 'Brig Sanjeev Chopra', role: 'VICE PATRON' },
+    { name: 'Col Amit Yadav', role: 'GOLF CAPTAIN' },
+    { name: 'Lt Col Javed Khan', role: 'SECRETARY' },
+    { name: 'Maj Navneet Kumar', role: 'TECH COORD' },
 ];
 
 const Team = () => {
     return (
-        <div className="bg-gray-900 text-white py-12 mb-8">
-            <div className="container mx-auto px-4">
-                <h2 className="text-4xl text-center font-bold mb-8">TEAM REPTA</h2>
-                <div className="flex flex-col items-center mb-12">
-                    <div className="text-center mb-8">
-                        <div className="mb-4">
-                            {/* <img
-                                // src={img1}
-                                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                                alt="Maj Gen PS Joshi"
-                                className="rounded-full mx-auto shadow-lg w-48 h-48 lg:w-64 lg:h-64 object-contain"
-                            /> */}
-                        </div>
-                        <h3 className="text-2xl font-semibold">Maj Gen PS Joshi</h3>
-                        <p className="text-lg text-gray-400">PATRON</p>
-                    </div>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
-                    {teamMembers.map((member, index) => (
-                        <div key={index} className="text-center">
-                            <div className="mb-4">
-                                {/* <img
-                                    src={member.image}
-                                    alt={member.name}
-                                    className="rounded-full mx-auto shadow-lg w-36 h-36 lg:w-48 lg:h-48 object-contain"
-                                /> */}
+        <div className="bg-gradient-to-b from-gray-900 to-gray-800 text-white py-16 mb-8">
+            <div className="container mx-auto px-8">
+                <h2 className="text-5xl text-center font-bold mb-12 text-transparent bg-clip-text bg-white">TEAM REPTA</h2>
+                <div className="grid grid-cols-3 gap-6">
+                    {/* Patron Card */}
+                    <div className="col-span-1 row-span-2 transform hover:scale-105 transition duration-300">
+                        <div className="bg-gradient-to-r from-yellow-400 to-red-500 p-1 rounded-lg shadow-lg h-full">
+                            <div className="bg-gray-800 p-8 rounded-lg flex flex-col justify-center items-center h-full">
+                                <h3 className="text-3xl font-bold mb-4">{patron.name}</h3>
+                                <p className="text-xl text-yellow-300 uppercase tracking-wider mb-4">{patron.role}</p>
+                                <div className="w-16 h-1 bg-yellow-300 mb-4"></div>
+                                <p className="text-gray-300 text-center">Leading with vision and expertise</p>
                             </div>
-                            <h3 className="text-xl font-semibold">{member.name}</h3>
-                            <p className="text-md text-gray-400">{member.role}</p>
+                        </div>
+                    </div>
+
+                    {/* Other Team Members */}
+                    {teamMembers.map((member, index) => (
+                        <div key={index} className="transform hover:scale-105 transition duration-300">
+                            <div className="bg-gradient-to-r from-violet-600 to-blue-600 p-1 rounded-lg shadow-lg">
+                                <div className="bg-gray-800 p-6 rounded-lg">
+                                    <h3 className="text-2xl font-bold mb-2">{member.name}</h3>
+                                    <p className="text-lg text-gray-300 uppercase tracking-wider">{member.role}</p>
+                                </div>
+                            </div>
                         </div>
                     ))}
                 </div>

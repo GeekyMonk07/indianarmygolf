@@ -58,6 +58,18 @@ async function initDb() {
       )
     `);
 
+    await client.query(`
+      CREATE TABLE IF NOT EXISTS news_flash (
+        id SERIAL PRIMARY KEY,
+        tournament_name VARCHAR(255) NOT NULL,
+        date DATE NOT NULL,
+        venue VARCHAR(255) NOT NULL,
+        entry_fees JSONB NOT NULL,
+        registration_deadline DATE NOT NULL,
+        contact_info VARCHAR(255) NOT NULL
+      )
+    `);
+
     console.log('Database initialized successfully');
 
     // Register default admin user

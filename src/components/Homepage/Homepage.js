@@ -2,6 +2,7 @@ import React from 'react'
 import HeroSection from './HeroSection'
 import Team from './Team'
 import Info from './Info'
+import NewsFlash from './NewsFlash'
 import logo from "../../assets/logo2.jpg"
 import { useNavigate } from 'react-router-dom'
 
@@ -29,6 +30,7 @@ const Homepage = () => {
                     </button>
                 </div>
             </div>
+            <NewsFlash />
             <div className="max-w-7xl mx-auto pt-20 px-6">
                 <HeroSection />
                 <Info />
