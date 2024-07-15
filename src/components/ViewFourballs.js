@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import AdminNavbar from './AdminNavbar';
 
 function ViewFourballs() {
     const [fourballs, setFourballs] = useState([]);
@@ -32,57 +33,60 @@ function ViewFourballs() {
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
     return (
-        <div className="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12">
-            <div className="relative py-3 sm:max-w-4xl sm:mx-auto">
-                <div className="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-20">
-                    <div className="max-w-4xl mx-auto">
-                        <h1 className="text-2xl font-semibold mb-6">View Fourballs</h1>
-                        <div className="overflow-x-auto">
-                            <table className="min-w-full divide-y divide-gray-200">
-                                <thead className="bg-gray-50">
-                                    <tr>
-                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Fourball ID</th>
-                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Player 1</th>
-                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Player 2</th>
-                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Player 3</th>
-                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Player 4</th>
-                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody className="bg-white divide-y divide-gray-200">
-                                    {currentRecords.map((fourball) => (
-                                        <tr key={fourball.id}>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{fourball.fourball_id}</td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{fourball.player1_name}</td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{fourball.player2_name}</td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{fourball.player3_name}</td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{fourball.player4_name}</td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                                <Link to={`/view-scores/${fourball.fourball_id}`} className="text-indigo-600 hover:text-indigo-900">View Scores</Link>
-                                            </td>
+        <div>
+            <AdminNavbar />
+            <div className="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12">
+                <div className="relative py-3 sm:max-w-4xl sm:mx-auto">
+                    <div className="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-20">
+                        <div className="max-w-4xl mx-auto">
+                            <h1 className="text-2xl font-semibold mb-6">View Fourballs</h1>
+                            <div className="overflow-x-auto">
+                                <table className="min-w-full divide-y divide-gray-200">
+                                    <thead className="bg-gray-50">
+                                        <tr>
+                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Fourball ID</th>
+                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Player 1</th>
+                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Player 2</th>
+                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Player 3</th>
+                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Player 4</th>
+                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
                                         </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </div>
-                        <div className="mt-4 flex justify-between items-center">
-                            <p className="text-sm text-gray-700">
-                                Showing {indexOfFirstRecord + 1} to {Math.min(indexOfLastRecord, fourballs.length)} of {fourballs.length} records
-                            </p>
-                            <nav className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
-                                {Array.from({ length: totalPages }, (_, i) => i + 1).map((number) => (
-                                    <button
-                                        key={number}
-                                        onClick={() => paginate(number)}
-                                        className={`relative inline-flex items-center px-4 py-2 border text-sm font-medium ${number === currentPage
+                                    </thead>
+                                    <tbody className="bg-white divide-y divide-gray-200">
+                                        {currentRecords.map((fourball) => (
+                                            <tr key={fourball.id}>
+                                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{fourball.fourball_id}</td>
+                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{fourball.player1_name}</td>
+                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{fourball.player2_name}</td>
+                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{fourball.player3_name}</td>
+                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{fourball.player4_name}</td>
+                                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                                    <Link to={`/view-scores/${fourball.fourball_id}`} className="text-indigo-600 hover:text-indigo-900">View Scores</Link>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div className="mt-4 flex justify-between items-center">
+                                <p className="text-sm text-gray-700">
+                                    Showing {indexOfFirstRecord + 1} to {Math.min(indexOfLastRecord, fourballs.length)} of {fourballs.length} records
+                                </p>
+                                <nav className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+                                    {Array.from({ length: totalPages }, (_, i) => i + 1).map((number) => (
+                                        <button
+                                            key={number}
+                                            onClick={() => paginate(number)}
+                                            className={`relative inline-flex items-center px-4 py-2 border text-sm font-medium ${number === currentPage
                                                 ? 'z-10 bg-indigo-50 border-indigo-500 text-indigo-600'
                                                 : 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50'
-                                            }`}
-                                    >
-                                        {number}
-                                    </button>
-                                ))}
-                            </nav>
+                                                }`}
+                                        >
+                                            {number}
+                                        </button>
+                                    ))}
+                                </nav>
+                            </div>
                         </div>
                     </div>
                 </div>

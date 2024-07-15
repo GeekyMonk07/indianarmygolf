@@ -14,9 +14,9 @@ const Team = () => {
         <div className="bg-gradient-to-b from-gray-900 to-gray-800 text-white py-16 mb-8">
             <div className="container mx-auto px-8">
                 <h2 className="text-5xl text-center font-bold mb-12 text-transparent bg-clip-text bg-white">TEAM REPTA</h2>
-                <div className="grid grid-cols-3 gap-6">
+                <div className="grid gap-6 md:grid-cols-3">
                     {/* Patron Card */}
-                    <div className="col-span-1 row-span-2 transform hover:scale-105 transition duration-300">
+                    <div className="md:col-span-1 md:row-span-2 transform hover:scale-105 transition duration-300">
                         <div className="bg-gradient-to-r from-yellow-400 to-red-500 p-1 rounded-lg shadow-lg h-full">
                             <div className="bg-gray-800 p-8 rounded-lg flex flex-col justify-center items-center h-full">
                                 <h3 className="text-3xl font-bold mb-4">{patron.name}</h3>

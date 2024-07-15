@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import EnterScore from './EnterScore';
+import logo from '../assets/logo2.jpg';
 
 function FourballDashboard() {
     const [fourballData, setFourballData] = useState(null);
@@ -33,7 +34,7 @@ function FourballDashboard() {
         return () => {
             window.onpopstate = null;
         };
-        
+
     }, [navigate]);
 
     const handleScoreEntered = (newScore) => {
@@ -73,6 +74,10 @@ function FourballDashboard() {
     return (
         <div className="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12">
             <div className="relative py-3 sm:max-w-xl sm:mx-auto">
+                <div className="text-center">
+                    <img src={logo} alt="logo" className="mx-auto w-32 h-32" />
+                    <h1 className='text-2xl font-bold mb-2'>REPTA</h1>
+                </div>
                 <div className="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-20">
                     <div className="max-w-md mx-auto">
                         <h1 className="text-2xl font-semibold mb-6">Welcome Fourball {fourballData.fourballId}</h1>

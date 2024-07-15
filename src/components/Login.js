@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import logo from '../assets/logo2.jpg';
 
 function Login() {
     const [isAdmin, setIsAdmin] = useState(false);
@@ -23,7 +24,6 @@ function Login() {
                 fourballId: response.data.fourballId,
                 players: response.data.players
             }));
-            // navigate(isAdmin ? '/admin' : '/user');
             navigate(isAdmin ? '/admin' : '/dashboard');
         } catch (error) {
             console.error('Login error:', error);
@@ -34,7 +34,8 @@ function Login() {
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-md w-full space-y-8">
-                <div>
+                <div className="text-center">
+                    <img src={logo} alt="logo" className="mx-auto w-32 h-32" />
                     <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
                         {isAdmin ? 'Admin Login' : 'User Login'}
                     </h2>
