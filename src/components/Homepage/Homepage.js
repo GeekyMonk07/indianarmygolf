@@ -21,7 +21,8 @@ const Homepage = () => {
                     <button onClick={() => navigate('/halloffame')}
                         className="ml-4 px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     >
-                        HALL OF FAME
+                        <span className="block sm:hidden">HOF</span>
+                        <span className="hidden sm:block">HALL OF FAME</span>
                     </button>
                     <button onClick={() => navigate('/login')}
                         className="ml-4 px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"

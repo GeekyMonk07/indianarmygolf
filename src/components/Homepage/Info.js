@@ -23,7 +23,7 @@ const Info = () => {
                     className={`flex flex-col lg:flex-row ${section.reverse ? 'lg:flex-row-reverse' : ''} items-center my-12`}
                 >
                     <div className="lg:w-1/2 p-4">
-                        <p className="text-lg lg:text-xl text-gray-800 leading-relaxed">
+                        <p className="text-lg lg:text-xl text-gray-800 leading-relaxed text-justify">
                             {section.text}
                         </p>
                     </div>

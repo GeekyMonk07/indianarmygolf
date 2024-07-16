@@ -22,10 +22,11 @@ const AdminNavbar = () => {
                                 <h1 className="text-xl font-bold text-gray-800 ml-2">REPTA</h1>
                             </div>
                         </div>
-                        <div className="flex">
-                            <div className="flex-shrink-0 flex items-center">
-                                <h1 className="text-xl font-bold text-gray-800">Admin Dashboard</h1>
-                            </div>
+                        <div className="flex-shrink-0 flex items-center">
+                            <h1 className="text-xl sm:text-2xl md:text-2xl lg:text-3xl font-bold text-gray-800">
+                                <span className="block sm:hidden">Admin</span>
+                                <span className="hidden sm:block">Admin Dashboard</span>
+                            </h1>
                         </div>
                         <div className="flex items-center">
                             <button
