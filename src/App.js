@@ -12,6 +12,7 @@ import { Navigate } from 'react-router-dom';
 import HallOfFame from './components/HallOfFame';
 import AdminHallOfFame from './components/AdminHallOfFame';
 import AdminNewsFlash from './components/AdminNewsFlash';
+import UpdatePassword from './components/UpdatePassword';
 
 function PrivateRoute({ children }) {
   const token = localStorage.getItem('token');
@@ -34,6 +35,7 @@ function App() {
           <Route path="/enter-score" element={<EnterScore />} />
           <Route path="/edit-hall-of-fame" element={<AdminHallOfFame />} />
           <Route path="/news-flash" element={<AdminNewsFlash />} />
+          <Route path="/update-password" element={<UpdatePassword />} />
         </Routes>
       </div>
     </Router>

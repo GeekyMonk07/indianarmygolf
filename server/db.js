@@ -1,6 +1,5 @@
 const { Pool } = require('pg');
 const dotenv = require('dotenv');
-// const bcrypt = require('bcryptjs');
 
 dotenv.config();
 
@@ -71,10 +70,6 @@ async function initDb() {
     `);
 
     console.log('Database initialized successfully');
-
-    // Register default admin user
-    // await registerUser('navneet', '123456');
-
   } catch (error) {
     console.error('Error initializing database:', error);
     throw error;
@@ -82,31 +77,6 @@ async function initDb() {
     client.release();
   }
 }
-
-// async function registerUser(username, password) {
-//   const client = await pool.connect();
-//   try {
-//     // Check if user already exists
-//     const userCheck = await client.query('SELECT * FROM admin WHERE username = $1', [username]);
-//     if (userCheck.rows.length > 0) {
-//       console.log('User already exists');
-//       return;
-//     }
-
-//     // Hash the password
-//     const hashedPassword = await bcrypt.hash(password, 10);
-
-//     // Insert user into database with hashed password
-//     await client.query('INSERT INTO admin (username, password) VALUES ($1, $2)', [username, hashedPassword]);
-
-//     console.log('User registered successfully');
-//   } catch (error) {
-//     console.error('Error registering user:', error);
-//     throw error;
-//   } finally {
-//     client.release();
-//   }
-// }
 
 const initialize = () => {
   initDb().catch(error => {
@@ -119,5 +89,4 @@ module.exports = {
   pool,
   initDb,
   initialize,
-  // registerUser
 };

@@ -126,21 +126,62 @@ exports.archiveFlush = async (req, res) => {
             WHERE table_schema = 'public' AND table_name != 'admin'
         `);
 
-        // Drop all tables except 'admin'
+        // Delete all data from tables except 'admin'
         for (let table of tablesResult.rows) {
-            await client.query(`DROP TABLE IF EXISTS ${table.table_name} CASCADE`);
+            await client.query(`TRUNCATE TABLE ${table.table_name} RESTART IDENTITY CASCADE`);
         }
-
-        // Re-initialize the database (create tables)
-        await require('../db').initDb();
 
         await client.query('COMMIT');
 
-        res.status(200).json({ message: 'Archive flush completed successfully' });
+        res.status(200).json({ message: 'Archive flush completed successfully. All data has been deleted from tables.' });
     } catch (error) {
         await client.query('ROLLBACK');
         console.error('Error during archive flush:', error);
         res.status(500).json({ message: 'Error during archive flush', error: error.message });
+    } finally {
+        client.release();
+    }
+};
+
+exports.updatePassword = async (req, res) => {
+    const { username, currentPassword, newPassword, confirmPassword } = req.body;
+    const client = await pool.connect();
+
+    try {
+        // Check if all required fields are present
+        if (!username || !currentPassword || !newPassword || !confirmPassword) {
+            return res.status(400).json({ message: 'All fields are required' });
+        }
+
+        // Check if new password and confirm password match
+        if (newPassword !== confirmPassword) {
+            return res.status(400).json({ message: 'New password and confirm password do not match' });
+        }
+
+        // Check if user exists
+        const userCheck = await client.query('SELECT * FROM admin WHERE username = $1', [username]);
+        if (userCheck.rows.length === 0) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        const user = userCheck.rows[0];
+
+        // Verify current password
+        const isPasswordCorrect = await bcrypt.compare(currentPassword, user.password);
+        if (!isPasswordCorrect) {
+            return res.status(401).json({ message: 'Current password is incorrect' });
+        }
+
+        // Hash the new password
+        const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+
+        // Update the password in the database
+        await client.query('UPDATE admin SET password = $1 WHERE username = $2', [hashedNewPassword, username]);
+
+        res.status(200).json({ message: 'Password updated successfully' });
+    } catch (error) {
+        console.error('Error updating password:', error);
+        res.status(500).json({ message: 'Error updating password', error: error.message });
     } finally {
         client.release();
     }

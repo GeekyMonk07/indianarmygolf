@@ -12,6 +12,7 @@ router.post('/fourball', adminController.createFourball);
 router.get('/fourballs', adminController.viewFourballs);
 router.get('/scores/:fourballId', adminController.viewScores);
 router.post('/archive-flush', adminController.archiveFlush);
+router.post('/update-password', adminController.updatePassword);
 
 router.post('/hall-of-fame', adminController.addHallOfFameEntry);
 router.post('/news-flash', adminController.updateNewsFlash);
