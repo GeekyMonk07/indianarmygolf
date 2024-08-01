@@ -1,9 +1,36 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
+// function EnterScore({ players, onScoreEntered }) {
+//     const [scoreData, setScoreData] = useState({
+//         playerName: players[0],
+//         holeNumber: '1',
+//         score: '',
+//     });
+
+//     const handleChange = (e) => {
+//         setScoreData({ ...scoreData, [e.target.name]: e.target.value });
+//     };
+
+//     const handleSubmit = async (e) => {
+//         e.preventDefault();
+//         try {
+//             const token = localStorage.getItem('token');
+//             await axios.post(`${process.env.REACT_APP_API_URL}/api/user/score`, scoreData, {
+//                 headers: { Authorization: `Bearer ${token}` },
+//             });
+//             onScoreEntered(scoreData); // Call this function to update the parent component's state
+//             alert('Score entered successfully');
+//             setScoreData({ ...scoreData, score: '' });
+//         } catch (error) {
+//             console.error('Error entering score:', error);
+//             alert('Failed to enter score. Please try again.');
+//         }
+//     };
+
 function EnterScore({ players, onScoreEntered }) {
     const [scoreData, setScoreData] = useState({
-        playerName: players[0],
+        playerName: players[0].name,
         holeNumber: '1',
         score: '',
     });
@@ -16,10 +43,14 @@ function EnterScore({ players, onScoreEntered }) {
         e.preventDefault();
         try {
             const token = localStorage.getItem('token');
-            await axios.post(`${process.env.REACT_APP_API_URL}/api/user/score`, scoreData, {
+            const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/user/score`, scoreData, {
                 headers: { Authorization: `Bearer ${token}` },
             });
-            onScoreEntered(scoreData); // Call this function to update the parent component's state
+            onScoreEntered({
+                ...scoreData,
+                grossScore: response.data.grossScore,
+                netScore: response.data.netScore
+            });
             alert('Score entered successfully');
             setScoreData({ ...scoreData, score: '' });
         } catch (error) {
@@ -31,7 +62,7 @@ function EnterScore({ players, onScoreEntered }) {
 
     return (
         <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
+            {/* <div>
                 <label htmlFor="playerName" className="block text-sm font-medium text-gray-700">Player</label>
                 <select
                     id="playerName"
@@ -42,6 +73,20 @@ function EnterScore({ players, onScoreEntered }) {
                 >
                     {players.map((player, index) => (
                         <option key={index} value={player}>{player}</option>
+                    ))}
+                </select>
+            </div> */}
+            <div>
+                <label htmlFor="playerName" className="block text-sm font-medium text-gray-700">Player</label>
+                <select
+                    id="playerName"
+                    name="playerName"
+                    value={scoreData.playerName}
+                    onChange={handleChange}
+                    className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                >
+                    {players.map((player, index) => (
+                        <option key={index} value={player.name}>{player.name}</option>
                     ))}
                 </select>
             </div>

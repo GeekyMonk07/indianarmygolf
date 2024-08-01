@@ -4,6 +4,26 @@ import { Link } from 'react-router-dom';
 import AdminNavbar from './AdminNavbar';
 
 function ViewFourballs() {
+    // const [fourballs, setFourballs] = useState([]);
+    // const [currentPage, setCurrentPage] = useState(1);
+    // const recordsPerPage = 10;
+
+    // useEffect(() => {
+    //     const fetchFourballs = async () => {
+    //         try {
+    //             const token = localStorage.getItem('token');
+    //             const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/admin/fourballs`, {
+    //                 headers: { Authorization: `Bearer ${token}` },
+    //             });
+    //             setFourballs(response.data);
+    //         } catch (error) {
+    //             console.error('Error fetching fourballs:', error);
+    //             alert('Failed to fetch fourballs. Please try again.');
+    //         }
+    //     };
+
+    //     fetchFourballs();
+    // }, []);
     const [fourballs, setFourballs] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const recordsPerPage = 10;
@@ -46,9 +66,13 @@ function ViewFourballs() {
                                         <tr>
                                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Fourball ID</th>
                                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Player 1</th>
+                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Handicap</th>
                                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Player 2</th>
+                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Handicap</th>
                                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Player 3</th>
+                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Handicap</th>
                                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Player 4</th>
+                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Handicap</th>
                                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
                                         </tr>
                                     </thead>
@@ -57,9 +81,13 @@ function ViewFourballs() {
                                             <tr key={fourball.id}>
                                                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{fourball.fourball_id}</td>
                                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{fourball.player1_name}</td>
+                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{fourball.player1_handicap}</td>
                                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{fourball.player2_name}</td>
+                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{fourball.player2_handicap}</td>
                                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{fourball.player3_name}</td>
+                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{fourball.player3_handicap}</td>
                                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{fourball.player4_name}</td>
+                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{fourball.player4_handicap}</td>
                                                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                                     <Link to={`/view-scores/${fourball.fourball_id}`} className="text-indigo-600 hover:text-indigo-900">View Scores</Link>
                                                 </td>

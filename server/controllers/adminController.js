@@ -21,13 +21,66 @@ exports.login = async (req, res) => {
     }
 };
 
+// exports.createFourball = async (req, res) => {
+//     const { fourballId, password, player1, player2, player3, player4 } = req.body;
+//     try {
+//         const hashedPassword = await bcrypt.hash(password, 10);
+//         const result = await pool.query(
+//             'INSERT INTO fourballs (fourball_id, password, player1_name, player2_name, player3_name, player4_name) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id',
+//             [fourballId, hashedPassword, player1, player2, player3, player4]
+//         );
+//         res.status(201).json({ message: 'Fourball created successfully', id: result.rows[0].id });
+//     } catch (error) {
+//         res.status(500).json({ message: 'Error creating fourball', error: error.message });
+//     }
+// };
+
+// exports.createFourball = async (req, res) => {
+//     const { fourballId, password, player1, player1Handicap, player2, player2Handicap, player3, player3Handicap, player4, player4Handicap } = req.body;
+//     try {
+//         const hashedPassword = await bcrypt.hash(password, 10);
+//         const result = await pool.query(
+//             'INSERT INTO fourballs (fourball_id, password, player1_name, player1_handicap, player2_name, player2_handicap, player3_name, player3_handicap, player4_name, player4_handicap) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING id',
+//             [fourballId, hashedPassword, player1, player1Handicap, player2, player2Handicap, player3, player3Handicap, player4, player4Handicap]
+//         );
+//         res.status(201).json({ message: 'Fourball created successfully', id: result.rows[0].id });
+//     } catch (error) {
+//         res.status(500).json({ message: 'Error creating fourball', error: error.message });
+//     }
+// };
+
+// exports.viewFourballs = async (req, res) => {
+//     try {
+//         const result = await pool.query('SELECT * FROM fourballs');
+//         res.json(result.rows);
+//     } catch (error) {
+//         res.status(500).json({ message: 'Error fetching fourballs', error: error.message });
+//     }
+// };
+
+// exports.viewScores = async (req, res) => {
+//     const { fourballId } = req.params;
+//     try {
+//         const result = await pool.query(`
+//             SELECT player_name, hole_number, score
+//             FROM scores s
+//             JOIN fourballs f ON s.fourball_id = f.id
+//             WHERE f.fourball_id = $1
+//             ORDER BY player_name, hole_number
+//         `, [fourballId]);
+//         res.json(result.rows);
+//     } catch (error) {
+//         res.status(500).json({ message: 'Error fetching scores', error: error.message });
+//     }
+// };
+
 exports.createFourball = async (req, res) => {
-    const { fourballId, password, player1, player2, player3, player4 } = req.body;
+    const { fourballId, password, player1, player1Handicap, player2, player2Handicap, player3, player3Handicap, player4, player4Handicap } = req.body;
     try {
         const hashedPassword = await bcrypt.hash(password, 10);
         const result = await pool.query(
-            'INSERT INTO fourballs (fourball_id, password, player1_name, player2_name, player3_name, player4_name) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id',
-            [fourballId, hashedPassword, player1, player2, player3, player4]
+            'INSERT INTO fourballs (fourball_id, password, player1_name, player1_handicap, player2_name, player2_handicap, player3_name, player3_handicap, player4_name, player4_handicap) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING id',
+            [fourballId, hashedPassword, player1, player1Handicap, player2, player2Handicap, player3, player3Handicap, player4, player4Handicap]
         );
         res.status(201).json({ message: 'Fourball created successfully', id: result.rows[0].id });
     } catch (error) {
@@ -47,14 +100,25 @@ exports.viewFourballs = async (req, res) => {
 exports.viewScores = async (req, res) => {
     const { fourballId } = req.params;
     try {
-        const result = await pool.query(`
+        const scoresResult = await pool.query(`
             SELECT player_name, hole_number, score
             FROM scores s
             JOIN fourballs f ON s.fourball_id = f.id
             WHERE f.fourball_id = $1
             ORDER BY player_name, hole_number
         `, [fourballId]);
-        res.json(result.rows);
+
+        const totalsResult = await pool.query(`
+            SELECT player_name, gross_score, net_score
+            FROM player_totals pt
+            JOIN fourballs f ON pt.fourball_id = f.id
+            WHERE f.fourball_id = $1
+        `, [fourballId]);
+
+        res.json({
+            scores: scoresResult.rows,
+            totals: totalsResult.rows
+        });
     } catch (error) {
         res.status(500).json({ message: 'Error fetching scores', error: error.message });
     }
