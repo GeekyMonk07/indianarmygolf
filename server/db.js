@@ -24,30 +24,6 @@ async function initDb() {
       )
     `);
 
-    // await client.query(`
-    //   CREATE TABLE IF NOT EXISTS fourballs (
-    //     id SERIAL PRIMARY KEY,
-    //     fourball_id VARCHAR(10) UNIQUE NOT NULL,
-    //     password VARCHAR(255) NOT NULL,
-    //     player1_name VARCHAR(50) NOT NULL,
-    //     player2_name VARCHAR(50) NOT NULL,
-    //     player3_name VARCHAR(50) NOT NULL,
-    //     player4_name VARCHAR(50) NOT NULL
-    //   )
-    // `);
-
-    // await client.query(`
-    //   CREATE TABLE IF NOT EXISTS scores (
-    //     id SERIAL PRIMARY KEY,
-    //     fourball_id INTEGER,
-    //     player_name VARCHAR(50),
-    //     hole_number INTEGER CHECK (hole_number BETWEEN 1 AND 18),
-    //     score INTEGER,
-    //     FOREIGN KEY (fourball_id) REFERENCES fourballs(id),
-    //     UNIQUE (fourball_id, player_name, hole_number)
-    //   )
-    // `);
-
     await client.query(`
       CREATE TABLE IF NOT EXISTS fourballs (
         id SERIAL PRIMARY KEY,
